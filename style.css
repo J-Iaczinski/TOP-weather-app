@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 5vh;
+  background-color: grey;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.cardCcontainer {
+  background-color: antiquewhite;
+  padding: 20px;
+  border-radius: 15px;
+  width: max-content;
+}
+
+form {
+  display: flex;
+  flex-direction: row;
+}
+
+input {
+  flex-grow: 0.9;
+  padding: 10px;
+  font-size: 1.2em;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  background-color: blanchedalmond;
+  outline: none;
+}
+
+button {
+  flex-grow: 0.1;
+  padding: 4px;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+
+  background-color: rgb(248, 211, 166);
+  cursor: pointer;
+}
+
+.containerAll {
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+}
+
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(50px, 1fr));
+  column-gap: 20px;
+
+}
+
+.weatherTimeline {
+  justify-items: center;
+  background-color: blanchedalmond;
+  padding: 10px;
+  border-radius: 15px;
+
+}
+
+.weatherTimeline img {
+  height: min-content;
+  width: min-content;
+  align-content: center;
+
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 20px;
+}
+
+.card div {
+  justify-items: center;
+}
+
+.cityName {
+  font-size: 2.3em;
+  font-weight: bolder;
+}
+
+.weatherIcon img {
+  height: max-content;
+  width: 100px;
+}
+
+.weatherIcon p {
+  font-size: large;
+  font-weight: 400;
+  padding-bottom: 5px;
+}
