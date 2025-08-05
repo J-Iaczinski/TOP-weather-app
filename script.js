@@ -1,6 +1,8 @@
-const API_KEY = "9DU9PB7XPQ9S3V8FRLED5TWGU";
+import API_KEY from "./APIKeys.js";
+
 const API_URL =
   "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline";
+
 const UNIT = "unitGroup=metric";
 
 async function getWeather(location) {
@@ -10,11 +12,21 @@ async function getWeather(location) {
     );
 
     const data = await response.json();
-    console.log(data);
+    console.log(data)
+    return data;
   } catch (err) {
-    console.log(err);
     alert("Could not Find this City");
   }
 }
 
-getWeather("florianopolis");
+async function showWeather(location) {
+  const weatherData = await getWeather(location)
+  if(weatherData){
+    console.log(`O clima em ${location} é ${weatherData.currentConditions.temp} ºC`)
+
+    console.log('Infomações Adcionais: ', weatherData.description)
+  }
+
+}
+
+showWeather('florianopolis')
