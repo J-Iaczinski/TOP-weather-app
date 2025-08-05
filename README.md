@@ -2,7 +2,7 @@
 
 ---
 
-#### In this project i will be using Vissual Crossing API, to make a simple weather app that can handle user submits to show the current weather conditions and also se the next 5 days of weather.
+ In this project i will be using Vissual Crossing API, to make a simple weather app that can handle user submits to show the current weather conditions and also se the next 5 days of weather.
 
 ---
 
