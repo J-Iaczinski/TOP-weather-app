@@ -1,8 +1,5 @@
 const API_KEY_UNSPLASH = '5Ob5jOnGrpWiS0nqK22ThkfqSijkofUEdZLEMZcGsEM';
 
-//This get the background image from location
-//`https://api.unsplash.com/search/photos?query=${city}&per_page=1&client_id=${apiKey}`
-
 async function getImage(location) {
    const API_KEY_UNSPLASH = '5Ob5jOnGrpWiS0nqK22ThkfqSijkofUEdZLEMZcGsEM';
 
@@ -13,9 +10,9 @@ async function getImage(location) {
          `${API_URL}${location}&client_id=${API_KEY_UNSPLASH}`
       );
 
-      const data = response.json();
-      console.log(data);
-      return data;
+      const data_img = response.json();
+      console.log(response);
+      return data_img;
    } catch (error) {
       alert(error.message);
    }
@@ -24,9 +21,17 @@ async function getImage(location) {
 async function showImg(location) {
    const imgData = await getImage(location);
 
-   if (getImage) {
+   if (imgData && imgData.urls) {
       const imageUrl = imgData.urls.full;
-      document.body.style.backgroundImage = `url(${imageUrl})`;
+
+      const img = new Image();
+      img.src = imageUrl;
+
+      img.onload = () => {
+         document.body.style.transition =
+            'background-image 1s ease-in-out, opacity 0.5s ease-in-out';
+         document.body.style.backgroundImage = `url(${imageUrl})`;
+      };
    }
 }
 
@@ -62,6 +67,40 @@ async function getWeather(location) {
 
 async function showWeather(location) {
    const weatherData = await getWeather(location);
+
+   if (!weatherData) {
+      return;
+   }
+
+   //Changing the DOM with weatherData
+
+   //Change the hidden effect to show city details
+   const hidden = document.querySelector('.city-ok');
+   hidden.style.opacity = 0;
+
+   hidden.removeAttribute('hidden');
+
+   hidden.style.transition = 'opacity 2s ease';
+   requestAnimationFrame(() => {
+      hidden.style.opacity = 1;
+   });
+
+   //changing the city and date
+   const cityName = document.querySelector('.cityName');
+   cityName.innerHTML = `${weatherData.resolvedAddress}`;
+
+   const date = document.querySelector('.date');
+   const dateFormated = new Date(weatherData.days[0].datetime);
+
+   const format = dateFormated.toLocaleDateString(undefined, {
+      weekday: 'short',
+      month: 'short',
+      year: 'numeric',
+   });
+
+   const formatado = format.replace(/\./g, '');
+
+   date.innerHTML = `${formatado}`;
 }
 
 function formHandler() {
@@ -70,6 +109,7 @@ function formHandler() {
 
    form.addEventListener('submit', (e) => {
       e.preventDefault();
+      showWeather(input.value);
       showImg(input.value);
    });
 }
