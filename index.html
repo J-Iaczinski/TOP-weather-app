@@ -1,60 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weather App</title>
-    <link rel="stylesheet" href="style.css" />
-    <script type="module" src="script.js" defer></script>
-  </head>
-  <body>
-    <div class="container">
-      <div class="containerAll">
-        <div class="form">
-          <form action="">
-            <input type="text" name="city" id="cityForm" placeholder="Search the city or country">
-            <button>Submit</button>
-          </form>
-        </div>
-        <div class="cardCcontainer">
-          <div class="card">
-            <div class="cityName">Florianopolis
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Weather App</title>
+      <link rel="stylesheet" href="style.css" />
+      <script type="module" src="script.js" defer></script>
+   </head>
+   <body>
+      <div class="container">
+         <div class="containerAll">
+            <div class="form">
+               <form action="">
+                  <input
+                     type="text"
+                     name="city"
+                     id="cityForm"
+                     placeholder="Search the city or country"
+                  />
+
+                  <button class="btn">Submit</button>
+               </form>
             </div>
-            <div class="weatherIcon">
-              <img src="images/clear-day.png" alt="">
-              <p>Today is Clear</p>
-              <p class="temp">5ºC</p>
-              </div>
-              </div>
-              <div class="timeline">
-                <div class="weatherTimeline">
-                  <img src="images/cloudy.png" alt="">
-                  <p>Cloudy</p>
-                  <p class="temp">5ºC</p>
-                </div>
-                <div class="weatherTimeline">
-                  <img src="images/cloudy.png" alt="">
-                  <p>Cloudy</p>
-                  <p class="temp">5ºC</p>
-                </div>
-                <div class="weatherTimeline">
-                  <img src="images/rain-snow.png" alt="">
-              <p>Raining</p>
-              <p class="temp">5ºC</p>
-              </div>
-              <div class="weatherTimeline">
-                <img src="images/clear-night.png" alt="">
-                <p>Clear Night</p>
-                <p class="temp">5ºC</p>
-              </div>
-              <div class="weatherTimeline">
-                <img src="images/cloudy.png" alt="">
-                <p>Cloudy</p>
-                <p class="temp">5ºC</p>
+            <div class="cardCcontainer">
+               <div class="card">
+                  <div class="weatherIcon"></div>
+               </div>
+               <div class="timeline">
+                  </div>
+               </div>
             </div>
-          </div>
-        </div>
+         </div>
       </div>
-    </div>
-  </body>
+   </body>
 </html>
