@@ -11,7 +11,6 @@ async function getImage(location) {
       );
 
       const data_img = response.json();
-      console.log(response);
       return data_img;
    } catch (error) {
       alert(error.message);
@@ -29,7 +28,7 @@ async function showImg(location) {
 
       img.onload = () => {
          document.body.style.transition =
-            'background-image 1s ease-in-out, opacity 0.5s ease-in-out';
+            'background-image 0.5s ease-in-out, opacity 0.3s ease-in-out';
          document.body.style.backgroundImage = `url(${imageUrl})`;
       };
    }
@@ -46,7 +45,7 @@ async function getWeather(location) {
 
    try {
       const response = await fetch(
-         `${API_URL}/${location}/next5days?${UNIT}&key=${API_KEY}&contentType=json`
+         `${API_URL}/${location}/next3days?${UNIT}&key=${API_KEY}&contentType=json`
       );
 
       if (!response.ok) {
@@ -87,10 +86,14 @@ async function showWeather(location) {
 
    //changing the city and date
    const cityName = document.querySelector('.cityName');
-   cityName.innerHTML = `${weatherData.resolvedAddress}`;
+   const iconLocation = document.querySelector('.city-card span');
+   iconFade(iconLocation);
+   updateTextFade(cityName, weatherData.resolvedAddress);
 
    const date = document.querySelector('.date');
-   const dateFormated = new Date(weatherData.days[0].datetime);
+
+   const [ano, mes, dia] = weatherData.days[0].datetime.split('-');
+   const dateFormated = new Date(ano, mes - 1, dia);
 
    const format = dateFormated.toLocaleDateString(undefined, {
       weekday: 'short',
@@ -98,9 +101,31 @@ async function showWeather(location) {
       year: 'numeric',
    });
 
-   const formatado = format.replace(/\./g, '');
+   function capitalize(str) {
+      return str.replace(/\b\w/g, (char) => char.toUpperCase());
+   }
+   const formatado = capitalize(format.replace(/\./g, ''));
 
-   date.innerHTML = `${formatado}`;
+   updateTextFade(date, formatado);
+
+   //Changing the Icon
+   const icon = document.querySelector('.icon img');
+   icon.src = `/images/${weatherData.currentConditions.icon}.svg`;
+   iconFade(icon);
+
+   //Changing the Temperature and Status
+   const temperature = document.querySelector('.temperature');
+   updateTextFadeCelsius(temperature, weatherData.currentConditions.temp);
+
+   const conditionStatus = document.querySelector('.status');
+   updateTextFade(conditionStatus, weatherData.currentConditions.conditions);
+
+   //Changin wind and humidty
+   const wind = document.querySelector('#wind');
+   Math.round(updateTextFade(wind, weatherData.currentConditions.windspeed));
+
+   const humidty = document.querySelector('#humidity');
+   updateTextFade(humidty, weatherData.currentConditions.humidity);
 }
 
 function formHandler() {
@@ -112,6 +137,37 @@ function formHandler() {
       showWeather(input.value);
       showImg(input.value);
    });
+}
+
+function iconFade(icon) {
+   icon.classList.add('smooth-fade');
+   icon.style.opacity = 0;
+
+   setTimeout(() => {
+      icon.style.opacity = 1;
+   }, 300);
+}
+
+function updateTextFade(text, newText) {
+   text.classList.add('smooth-fade');
+   text.style.opacity = 0;
+
+   setTimeout(() => {
+      text.innerHTML = newText;
+
+      text.style.opacity = 1;
+   }, 300);
+}
+
+function updateTextFadeCelsius(text, newText) {
+   text.classList.add('smooth-fade');
+   text.style.opacity = 0;
+
+   setTimeout(() => {
+      text.innerHTML = Math.round(newText) + ' °C';
+
+      text.style.opacity = 1;
+   }, 300);
 }
 
 formHandler();
