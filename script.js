@@ -1,12 +1,44 @@
-const API_KEY = '9DU9PB7XPQ9S3V8FRLED5TWGU';
+const API_KEY_UNSPLASH = '5Ob5jOnGrpWiS0nqK22ThkfqSijkofUEdZLEMZcGsEM';
 
-const API_URL =
-   'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline';
+//This get the background image from location
+//`https://api.unsplash.com/search/photos?query=${city}&per_page=1&client_id=${apiKey}`
 
-const UNIT = 'unitGroup=metric';
+async function getImage(location) {
+   const API_KEY_UNSPLASH = '5Ob5jOnGrpWiS0nqK22ThkfqSijkofUEdZLEMZcGsEM';
+
+   const API_URL = 'https://api.unsplash.com/photos/random?query=';
+
+   try {
+      const response = await fetch(
+         `${API_URL}${location}&client_id=${API_KEY_UNSPLASH}`
+      );
+
+      const data = response.json();
+      console.log(data);
+      return data;
+   } catch (error) {
+      alert(error.message);
+   }
+}
+
+async function showImg(location) {
+   const imgData = await getImage(location);
+
+   if (getImage) {
+      const imageUrl = imgData.urls.full;
+      document.body.style.backgroundImage = `url(${imageUrl})`;
+   }
+}
 
 // This get the information about the city
 async function getWeather(location) {
+   const API_KEY = '9DU9PB7XPQ9S3V8FRLED5TWGU';
+
+   const API_URL =
+      'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline';
+
+   const UNIT = 'unitGroup=metric';
+
    try {
       const response = await fetch(
          `${API_URL}/${location}/next5days?${UNIT}&key=${API_KEY}&contentType=json`
@@ -30,77 +62,16 @@ async function getWeather(location) {
 
 async function showWeather(location) {
    const weatherData = await getWeather(location);
-   if (!weatherData) return;
-
-   const card = document.querySelector('.card');
-   const timeline = document.querySelector('.timeline');
-
-   // Limpa o conteúdo mas mantém a estrutura
-   card.replaceChildren();
-   timeline.replaceChildren();
-
-   // CITY NAME
-   const cityName = document.createElement('div');
-   cityName.className = 'cityName';
-   cityName.textContent = weatherData.resolvedAddress;
-   card.append(cityName);
-
-   // Cria o container .weatherIcon novamente
-   const weatherIcon = document.createElement('div');
-   weatherIcon.className = 'weatherIcon';
-   card.append(weatherIcon);
-
-   // ICON
-   const iconSrc = weatherData.currentConditions.icon || 'default';
-   const iconEl = document.createElement('img');
-   iconEl.id = 'icon';
-   iconEl.src = `images/${iconSrc}.png`;
-   iconEl.onerror = () => (iconEl.src = 'images/default.png');
-   iconEl.style.opacity = 0;
-
-   const temp = document.createElement('p');
-   temp.className = 'temp';
-   temp.textContent = `${weatherData.currentConditions.temp}ºC`;
-
-   weatherIcon.append(iconEl, temp);
-
-   setTimeout(() => {
-      iconEl.style.opacity = 1;
-   }, 300);
-
-   // TIMELINE
-   weatherData.days.slice(1).forEach((day) => {
-      const cardTimeline = document.createElement('div');
-      cardTimeline.className = 'weatherTimeline';
-
-      const img = document.createElement('img');
-      img.src = `images/${day.icon || 'default'}.png`;
-      img.onerror = () => {
-         img.src = 'images/default.png';
-      };
-
-      const p = document.createElement('p');
-      p.className = 'temp';
-      p.textContent = day.temp;
-
-      cardTimeline.append(img, p);
-      timeline.append(cardTimeline);
-   });
 }
 
-const btn = document.querySelector('.btn');
-const input = document.getElementById('cityForm');
+function formHandler() {
+   const form = document.querySelector('form');
+   const input = document.querySelector('#location');
 
-function formHandler(btn, input, callback) {
-   btn.addEventListener('click', (e) => {
+   form.addEventListener('submit', (e) => {
       e.preventDefault();
-      const city = input.value.trim();
-      if (city) {
-         callback(city);
-      } else {
-         alert('Digite uma cidade valida');
-      }
+      showImg(input.value);
    });
 }
 
-formHandler(btn, input, showWeather);
+formHandler();

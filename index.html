@@ -5,28 +5,77 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>Weather App</title>
       <link rel="stylesheet" href="style.css" />
+      <link
+         rel="stylesheet"
+         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      />
       <script type="module" src="script.js" defer></script>
    </head>
    <body>
-      <div class="container">
-         <div class="containerAll">
-            <div class="form">
-               <form action="">
-                  <input
-                     type="text"
-                     name="city"
-                     id="cityForm"
-                     placeholder="Search the city or country"
-                  />
-
-                  <button class="btn">Submit</button>
+      <div>
+         <div class="card-container">
+            <div class="search-container">
+               <form action="" class="form-container">
+                  <input type="text" class="inpt" placeholder="Search City" />
+                  <button class="search-btn">
+                     <span class="material-symbols-outlined">search</span>
+                  </button>
                </form>
             </div>
-            <div class="cardCcontainer">
-               <div class="card">
-                  <div class="weatherIcon"></div>
+            <div class="city-container">
+               <div class="city-card">
+                  <span class="material-symbols-outlined"> location_on </span>
+                  <h3 class="cityName h1-text">New York, LA</h3>
                </div>
-               <div class="timeline"></div>
+               <div class="date">6, Sep, 2025</div>
+            </div>
+            <div class="main-content-container">
+               <div class="icon">
+                  <img src="images/cloudy.svg" alt="" />
+               </div>
+               <div class="temp">
+                  <h2 class="temperature h2">23 °C</h2>
+                  <h3 class="status light">Cloudy</h3>
+               </div>
+            </div>
+            <div class="wind-humidity-container">
+               <div class="content-card">
+                  <span class="material-symbols-outlined"> air </span>
+                  <div>
+                     <h2>Wind</h2>
+                     <h3>23 m/s</h3>
+                  </div>
+               </div>
+               <div class="content-card">
+                  <span class="material-symbols-outlined"> water_drop </span>
+                  <div>
+                     <h2>Humidity</h2>
+                     <h3>55%</h3>
+                  </div>
+               </div>
+            </div>
+            <div class="forecast-container">
+               <div class="forecast-card">
+                  <div class="forecast-content">
+                     <h3>Aug 08</h3>
+                     <img src="images/rain.svg" alt="" />
+                     <h3 class="forecast-txt">18 °C</h3>
+                  </div>
+               </div>
+               <div class="forecast-card">
+                  <div class="forecast-content">
+                     <h3>Aug 08</h3>
+                     <img src="images/rain.svg" alt="" />
+                     <h3 class="forecast-txt">18 °C</h3>
+                  </div>
+               </div>
+               <div class="forecast-card">
+                  <div class="forecast-content">
+                     <h3>Aug 08</h3>
+                     <img src="images/rain.svg" alt="" />
+                     <h3 class="forecast-txt">18 °C</h3>
+                  </div>
+               </div>
             </div>
          </div>
       </div>
