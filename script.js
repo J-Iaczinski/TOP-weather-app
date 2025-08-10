@@ -1,4 +1,4 @@
-import API_KEY from './APIKeys.js';
+const API_KEY = '9DU9PB7XPQ9S3V8FRLED5TWGU';
 
 const API_URL =
    'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline';
