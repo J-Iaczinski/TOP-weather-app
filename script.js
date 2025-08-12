@@ -19,6 +19,7 @@ async function getImage(location) {
 
 async function showImg(location) {
    const imgData = await getImage(location);
+   console.log(imgData);
 
    if (imgData && imgData.urls) {
       const imageUrl = imgData.urls.full;
@@ -122,10 +123,47 @@ async function showWeather(location) {
 
    //Changin wind and humidty
    const wind = document.querySelector('#wind');
-   Math.round(updateTextFade(wind, weatherData.currentConditions.windspeed));
+   updateTextFade(wind, weatherData.currentConditions.windspeed);
 
    const humidty = document.querySelector('#humidity');
    updateTextFade(humidty, weatherData.currentConditions.humidity);
+
+   //Timeline Forecast 3 day
+
+   const forecastCards = document.querySelectorAll('.forecast-content');
+
+   forecastCards.forEach((card, index) => {
+      // ICONS
+      const icon = card.querySelector('img');
+
+      const newSrc = `/images/${weatherData.days[index + 1].icon}.svg`;
+      forescastFade(icon, newSrc);
+
+      //Dia
+      const forecastDate = card.querySelector('.forecast-date');
+
+      const [ano, mes, dia] = weatherData.days[index + 1].datetime.split('-');
+      const dateFormated = new Date(ano, mes - 1, dia);
+
+      const format = dateFormated.toLocaleDateString(undefined, {
+         day: '2-digit',
+         month: 'long',
+      });
+
+      function capitalize(str) {
+         return str.replace(/\b\w/g, (char) => char.toUpperCase());
+      }
+      const formatado = capitalize(format.replace(/\./g, ''));
+
+      updateTextFade(forecastDate, formatado);
+
+      //temperature
+      const temp = card.querySelector('.forecast-txt');
+
+      const src = weatherData.days[index + 1].temp;
+
+      updateTextFadeCelsius(temp, src);
+   });
 }
 
 function formHandler() {
@@ -137,6 +175,16 @@ function formHandler() {
       showWeather(input.value);
       showImg(input.value);
    });
+}
+
+function forescastFade(icon, newSrc) {
+   icon.classList.add('smooth-fade');
+   icon.style.opacity = '0';
+
+   setTimeout(() => {
+      icon.src = newSrc;
+      icon.style.opacity = '1';
+   }, 300);
 }
 
 function iconFade(icon) {
