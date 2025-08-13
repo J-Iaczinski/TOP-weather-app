@@ -111,7 +111,7 @@ async function showWeather(location) {
 
    //Changing the Icon
    const icon = document.querySelector('.icon img');
-   icon.src = `/images/${weatherData.currentConditions.icon}.svg`;
+   icon.src = `images/${weatherData.currentConditions.icon}.svg`;
    iconFade(icon);
 
    //Changing the Temperature and Status
@@ -136,7 +136,7 @@ async function showWeather(location) {
       // ICONS
       const icon = card.querySelector('img');
 
-      const newSrc = `/images/${weatherData.days[index + 1].icon}.svg`;
+      const newSrc = `images/${weatherData.days[index + 1].icon}.svg`;
       forescastFade(icon, newSrc);
 
       //Dia
